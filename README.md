@@ -104,18 +104,21 @@ if __name__ == "__main__":
 ## Deployment Sequence 
 
 ```
- :DFU Mode] ➔ [RP2350 / usbliter8 Payload Injection] ➔ [PWND SecureROM State]
-                                                               │
-   ┌───────────────────────────────────────────────────────────┘
-   ▼
-[Send Patched iBoot via USB] ➔ [iBoot Accepts Unsigned Code]
+[DFU Mode] ➔ [RP2350 Hardware Payload] ➔ [PWND SecureROM State]
+                                                    │
+ ┌──────────────────────────────────────────────────┘
+ ▼
+[Send Custom iBoot via USB] ➔ [Bypasses Signature Checks]
                                         │
-   ┌────────────────────────────────────┘
-   ▼
-[Send Modified Device Tree (No SEP Node)]
-   │
-   ▼
-[Send Patched Kernel (Stubbed SEP Managers)] ➔ [Successful Boot to iOS 12 Screen]
+ ┌──────────────────────────────────────┘
+ ▼
+[Send Cleaned Device Tree] ➔ (Strips out 'apple,sep' node to prevent hardware panic)
+ │
+ ▼
+[Send Patched Kernel] ➔ (Bypasses AMFI enforcement + ignores missing SEP)
+ │
+ ▼
+[Successful Boot to iOS 12 Setup Screen]
 ```
 ---
 ## Verification Checklist 
