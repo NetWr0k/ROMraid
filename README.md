@@ -58,32 +58,40 @@ once you find the hex offsets in ghidra, stick them in this template to auto-pat
 ```python
 import os
 
-TARGET_FILE = "decrypted_kernel.bin"
-OUTPUT_FILE = "patched_kernel.bin"
+# Define your targets and their specific patch types
+# Format: { Offset: (Bytes, "Label for Console") }
+IBOOT_PATCHES = {
+    0x001122: (b'\x00\x00\x80\x52\xc0\x03\x5f\xd6', "iBoot Signature Skip (MOV W0, #0 + RET)"),
+}
 
-# change this hex value to whatever you found in ghidra
-TARGET_OFFSET = 0x1234AB 
+KERNEL_PATCHES = {
+    0x1234AB: (b'\xd5\x03\x20\x1f', "Kernel SEP Check Bypass (NOP)"),  # Your original target
+    0x5678CD: (b'\xd5\x03\x20\x1f', "Kernel AMFI Check Bypass (NOP)"),
+}
 
-# 0x1F2003D5 is just the hex value for a NOP (No Operation) instruction in ARM64
-PATCH_BYTES = b'\xd5\x03\x20\x1f' 
-
-def apply_patch():
-    if not os.path.exists(TARGET_FILE):
-        print("[-] dude, where is the decrypted_kernel.bin file?")
+def patch_binary(filename, patch_dict):
+    if not os.path.exists(filename):
+        print(f"[-] Dude, where is the {filename} file?")
         return
-
-    with open(TARGET_FILE, "rb") as f:
+        
+    with open(filename, "rb") as f:
         file_data = bytearray(f.read())
-
-    print(f"[+] overwriting check logic at: {hex(TARGET_OFFSET)}")
-    file_data[TARGET_OFFSET:TARGET_OFFSET+len(PATCH_BYTES)] = PATCH_BYTES
-
-    with open(OUTPUT_FILE, "wb") as f:
+        
+    print(f"\n[+] Patching {filename}...")
+    for offset, (patch_bytes, description) in patch_dict.items():
+        print(f"    -> Overwriting at {hex(offset)} | {description}")
+        file_data[offset:offset+len(patch_bytes)] = patch_bytes
+        
+    output_filename = f"patched_{filename}"
+    with open(output_filename, "wb") as f:
         f.write(file_data)
-    print("[+] done. patched_kernel.bin ready.")
+    print(f"[+] Done. {output_filename} ready.")
 
 if __name__ == "__main__":
-    apply_patch()
+    # Run them both sequentially in your workspace
+    patch_binary("iBoot.iphone11.RELEASE", IBOOT_PATCHES)
+    patch_binary("decrypted_kernel.bin", KERNEL_PATCHES)
+
 ```
 *PS: It wont work 
 ---
