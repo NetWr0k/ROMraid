@@ -12,7 +12,6 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 
 ## Quick Info
 * phone: iPhone XS Max (A12 Bionic / iPhone11,6) 
-<u> Was going to do iPhone 11 PM but couldn't find a beta ipsw <u/>
 * board config: d331p
 * target ios: iOS 12.1 Beta 1 (16B5059d) 
 * exploit: usbliter8 (needs that cheap RP2350 microcontroller board to actually boot, wich i still dont have)
