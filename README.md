@@ -101,7 +101,7 @@ if __name__ == "__main__":
 * it's tethered: if the phone dies or reboots, you have to plug it back into the RP2350 microcontroller board to launch the exploit again or it won't boot.
 ---
 
-# Deployment Sequence 
+## Deployment Sequence 
 
 ```
  :DFU Mode] ➔ [RP2350 / usbliter8 Payload Injection] ➔ [PWND SecureROM State]
@@ -117,3 +117,10 @@ if __name__ == "__main__":
    ▼
 [Send Patched Kernel (Stubbed SEP Managers)] ➔ [Successful Boot to iOS 12 Screen]
 ```
+---
+## Verification Checklist 
+
+Complete these two critical verification steps before your hardware arrives to prevent boot loops and script errors.
+
+* **Ghidra File Offsets:** Ghidra displays Virtual Addresses (VA) based on memory mapping (e.g., `0xFFFFFFF0...`). Your Python script requires the raw physical **File Offset**. Look at the **bottom right corner** of Ghidra and copy the **`File Offset:`** value, not the main address hex.
+* **Device Tree Fix:** Keep a clean backup of your device tree binary. If the phone loops immediately before the Apple logo appears, you must use the `dtc` tool to completely delete the `sep` hardware entry.
