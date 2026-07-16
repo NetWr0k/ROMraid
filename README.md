@@ -5,8 +5,8 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 ---
 
 ## Links
-* the ipsw download link: https://theapplewiki.com
-* the keys + kbags: https://theiphonewiki.com
+* the ipsw download link: [https://theapplewiki.com](https://theapplewiki.com/wiki/Beta_Firmware/iPhone/12.x#iPhone_XS_Max)
+* the keys + kbags: [https://theiphonewiki.com](https://www.theiphonewiki.com/wiki/PeaceBSeed_16B5059d_(iPhone11,6))
 
 ---
 
@@ -14,7 +14,7 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 * phone: iPhone XS Max (A12 Bionic / iPhone11,6)
 * board config: d331p
 * target ios: iOS 12.1 Beta 1 (16B5059d)
-* exploit: usbliter8 (needs that cheap RP2350 microcontroller board to actually boot)
+* exploit: usbliter8 (needs that cheap RP2350 microcontroller board to actually boot, wich i still dont have)
 
 ---
 
@@ -25,14 +25,14 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 
 ---
 
-## What to Do (The Steps)
+## What to Do (According to Claude and 5 minutes of research*)
 
 ### Step 1: rip out the kernel
 open terminal inside your working folder and run this to grab the kernel out of the beta ipsw:
 ```bash
 ipsw extract iPhone11,6_12.1_16B5059d_Restore.ipsw -k
 ```
-(or just change the extension to .zip and pull out kernelcache.release.iphone11 manually)
+(or just change the extension to .zip and pull out kernelcache.release.iphone11 manually) 
 
 ### Step 2: decrypt it
 grab the specific beta key and IV from the wiki bookmark above and run this command:
@@ -85,9 +85,9 @@ def apply_patch():
 if __name__ == "__main__":
     apply_patch()
 ```
-**note: It wont work 
+*PS: It wont work 
 ---
 
-## Things to Remember so I Don't Break Stuff
+## Things to Remember so I can lose motivation 
 * no SEP = no security: patching out the sep manager makes the phone boot, but Face ID, passcodes, Apple Pay, and cellular signals will be broken on the downgraded version. it's basically just a wifi iPod.
 * it's tethered: if the phone dies or reboots, you have to plug it back into the RP2350 microcontroller board to launch the exploit again or it won't boot.
