@@ -14,7 +14,7 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 * phone: iPhone XS Max (A12 Bionic / iPhone11,6) 
 * board config: d331p
 * target ios: iOS 12.1 Beta 1 (16B5059d) 
-* exploit: usbliter8 (needs that cheap RP2350 microcontroller board to actually boot, wich i still dont have)
+* exploit: usbliter8 (needs that cheap RP2350 microcontroller board to actually boot)
 
 ---
 
@@ -25,8 +25,7 @@ quick cheatsheet for reversing the iOS 12.1 Beta 1 (16B5059d) kernel cache on th
 
 ---
 
-## What to Do (According to Claude and 5 minutes of research*)
-
+## W
 ### Step 1: rip out the kernel
 open terminal inside your working folder and run this to grab the kernel out of the beta ipsw:
 ```bash
@@ -118,7 +117,7 @@ if __name__ == "__main__":
 [Send Patched Kernel] ➔ (Bypasses AMFI enforcement + ignores missing SEP)
  │
  ▼
-[Successful Boot to iOS 12 Setup Screen]
+[Successful Boot to Kernel would KP]
 ```
 ---
 ## Verification Checklist 
