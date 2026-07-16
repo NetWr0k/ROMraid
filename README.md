@@ -120,7 +120,7 @@ if __name__ == "__main__":
 ---
 ## Verification Checklist 
 
-Complete these two critical verification steps before your hardware arrives to prevent boot loops and script errors.
+to prevent boot loops and script errors.
 
 * **Ghidra File Offsets:** Ghidra displays Virtual Addresses (VA) based on memory mapping (e.g., `0xFFFFFFF0...`). Your Python script requires the raw physical **File Offset**. Look at the **bottom right corner** of Ghidra and copy the **`File Offset:`** value, not the main address hex.
 * **Device Tree Fix:** Keep a clean backup of your device tree binary. If the phone loops immediately before the Apple logo appears, you must use the `dtc` tool to completely delete the `sep` hardware entry.
