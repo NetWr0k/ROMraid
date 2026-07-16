@@ -91,3 +91,21 @@ if __name__ == "__main__":
 ## Things to Remember so I can lose motivation 
 * no SEP = no security: patching out the sep manager makes the phone boot, but Face ID, passcodes, Apple Pay, and cellular signals will be broken on the downgraded version. it's basically just a wifi iPod.
 * it's tethered: if the phone dies or reboots, you have to plug it back into the RP2350 microcontroller board to launch the exploit again or it won't boot.
+---
+
+# Deployment Sequence 
+
+```
+ :DFU Mode] ➔ [RP2350 / usbliter8 Payload Injection] ➔ [PWND SecureROM State]
+                                                               │
+   ┌───────────────────────────────────────────────────────────┘
+   ▼
+[Send Patched iBoot via USB] ➔ [iBoot Accepts Unsigned Code]
+                                        │
+   ┌────────────────────────────────────┘
+   ▼
+[Send Modified Device Tree (No SEP Node)]
+   │
+   ▼
+[Send Patched Kernel (Stubbed SEP Managers)] ➔ [Successful Boot to iOS 12 Screen]
+```
